@@ -5,7 +5,6 @@ public class InstanceCreation2 {
 
     public static void main(String[] args) {
         Student s001 = new Student();
-        new Student();
         name = "Ruwan";
         Name n1 = new Name();
         Student s002 = new Student();
