@@ -16,10 +16,14 @@ class Vehicle{
         System.out.println("Vehicle object is being initialized");
     }
     void printRegistrationNumber(){
+        printInternal();
+    }
+    private void printInternal(){
         System.out.println(registrationNumber);
     }
     public Vehicle(){
         System.out.println("Vehicle constructor");
+        System.out.println("Vehicle: " + this);
     }
 
 }
@@ -32,6 +36,7 @@ class Car extends Vehicle{ //Relationship is ----> Car is a Vehicle
     }
     public Car(){
         System.out.println("Car constructor");
+        System.out.println("Car: " + this);
     }
 }
 class Van extends Vehicle{ //Van is a Vehicle
