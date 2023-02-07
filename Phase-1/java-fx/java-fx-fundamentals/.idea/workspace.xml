@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d6978f39-b920-4e5d-bc0a-64f93afdbf77" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/java-fx-animations/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fx-scene-exercise/src/main/java/lk/ijse/dep10/exp/AppInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../fx-scene-exercise/src/main/java/lk/ijse/dep10/exp/AppInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fx-scene-exercise/target/classes/lk/ijse/dep10/exp/AppInitializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../fx-scene-exercise/target/classes/lk/ijse/dep10/exp/AppInitializer.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectId" id="2LPZ9YhnWGHs1wZB599BISJhOT2" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/nuwan/Documents/DEP-10/Phase-1/java-fx/java-fx-fundamentals",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d6978f39-b920-4e5d-bc0a-64f93afdbf77" name="Changes" comment="" />
+      <created>1675774526768</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1675774526768</updated>
+      <workItem from="1675774528061" duration="17000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
