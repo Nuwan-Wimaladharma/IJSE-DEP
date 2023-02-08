@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -105,7 +106,7 @@ public class AppInitializer extends Application {
         formContainer.add(validateButton,0,9,2,1);
         formContainer.setGridLinesVisible(false);
         formContainer.setAlignment(Pos.CENTER);
-        formContainer.setPadding(new Insets(10));
+        formContainer.setPadding(new Insets(20));
         formContainer.setVgap(10);
         formContainer.setHgap(10);
         GridPane.setHalignment(topic, HPos.CENTER);
@@ -114,6 +115,7 @@ public class AppInitializer extends Application {
         GridPane.setHalignment(name,HPos.RIGHT);
         GridPane.setHalignment(nic,HPos.RIGHT);
         GridPane.setHalignment(contact,HPos.RIGHT);
+        GridPane.setHgrow(idText,Priority.ALWAYS);
 
         Scene formScene = new Scene(formContainer);
         formStage.setScene(formScene);

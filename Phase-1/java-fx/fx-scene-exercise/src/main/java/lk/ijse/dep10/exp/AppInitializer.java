@@ -17,9 +17,16 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static java.lang.Thread.sleep;
 
 public class AppInitializer extends Application {
+    static KeyFrame key;
+    static int a;
+    static int b;
 
     public static void main(String[] args) {
         launch(args);
@@ -133,7 +140,26 @@ public class AppInitializer extends Application {
         timeLine.setCycleCount(1);
         timeLine.playFromStart();
 
-        String[] names = new String[]{"Nuwan", "Vipula", "Gayashan", "Sagara", "Thusitha", "Janitha", "Mithila"};
+        String mainText = "Nuwan Wimaladharma";
+        String[] letters = new String[(mainText.length() * 2) - 1];
+        for (int i = 0; i < mainText.length(); i++) {
+            String temp = "";
+            for (int j = 0; j <= i; j++) {
+                temp += (mainText.charAt(j));
+            }
+            letters[i] = temp;
+        }
+        String[] reverseLetters = new String[mainText.length()-1];
+        for (int i = reverseLetters.length-1; i >= 0; i--) {
+            String temp = "";
+            for (int j = 0; j <= i ; j++) {
+                temp += (mainText.charAt(j));
+            }
+            reverseLetters[reverseLetters.length-1-i] = temp;
+        }
+        for (int i = mainText.length(); i < (mainText.length()*2)-1; i++) {
+            letters[i] = reverseLetters[i - mainText.length()];
+        }
         Label lbl = new Label();
         AnchorPane container = new AnchorPane(lbl);
 
@@ -143,29 +169,16 @@ public class AppInitializer extends Application {
         movingContainer.setPrefHeight(600);
         movingContainer.setPrefWidth(800);
 
-        KeyFrame key5 = new KeyFrame(Duration.seconds(1), event -> {
-            lbl.setText(names[0]);
-        });
-        KeyFrame key6 = new KeyFrame(Duration.seconds(2), event -> {
-            lbl.setText(names[1]);
-        });
-        KeyFrame key7 = new KeyFrame(Duration.seconds(3), event -> {
-            lbl.setText(names[2]);
-        });
-        KeyFrame key8 = new KeyFrame(Duration.seconds(4), event -> {
-            lbl.setText(names[3]);
-        });
-        KeyFrame key9 = new KeyFrame(Duration.seconds(5), event -> {
-            lbl.setText(names[4]);
-        });
-        KeyFrame key10 = new KeyFrame(Duration.seconds(6), event -> {
-            lbl.setText(names[5]);
-        });
-        KeyFrame key11 = new KeyFrame(Duration.seconds(7), event -> {
-            lbl.setText(names[6]);
-        });
-
-        Timeline timeLine2 = new Timeline(key5, key6, key7, key8, key9, key10, key11);
+        a = 0;
+        b = 0;
+        KeyFrame[] keys = new KeyFrame[letters.length];
+        for (int i = 0; i < keys.length; i++) {
+            keys[b] = new KeyFrame(Duration.millis(++b * 150),event -> {
+                lbl.setText(letters[a++]);
+                if (a == letters.length) a = 0;
+            });
+        }
+        Timeline timeLine2 = new Timeline(keys);
         timeLine2.setCycleCount(Animation.INDEFINITE);
         timeLine2.playFromStart();
 
@@ -175,12 +188,6 @@ public class AppInitializer extends Application {
             lbl.setLayoutX(event.getX() + 10);
             lbl.setLayoutY(event.getY() + 10);
         });
-
-//        VBox appContainer = new VBox(message);
-//        appContainer.setPrefHeight(600);
-//        appContainer.setPrefWidth(800);
-//        appContainer.setAlignment(Pos.CENTER);
-//        appContainer.setPadding(new Insets(20));
 
         Scene appScene = new Scene(movingContainer);
         appStage.setScene(appScene);
