@@ -4,22 +4,20 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.beans.property.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
@@ -29,6 +27,7 @@ import javafx.util.Duration;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 public class AppInitializer extends Application {
 
@@ -36,7 +35,9 @@ public class AppInitializer extends Application {
     private static Stage stgImageViewer;
     private static Stage stgAudioPlayer;
     private static Stage stgVideoPlayer;
+    private  static Stage stgDialogs;
     private MediaPlayer mediaPlayer;
+    private SimpleBooleanProperty isMute = new SimpleBooleanProperty(false);
 
     public static void main(String[] args) {
         launch(args);
@@ -57,7 +58,8 @@ public class AppInitializer extends Application {
         Button btnImageViewer = new Button("Image Viewer");
         Button btnAudio = new Button("Play Audio");
         Button btnVideo = new Button("Play Video");
-        VBox root = new VBox(lblTitle, btnProgressBar, btnImageViewer, btnAudio, btnVideo);
+        Button btnDialogs = new Button("FX Dialogs");
+        VBox root = new VBox(lblTitle, btnProgressBar, btnImageViewer, btnAudio, btnVideo, btnDialogs);
 
         root.setSpacing(10);
         root.setPadding(new Insets(10));
@@ -71,10 +73,12 @@ public class AppInitializer extends Application {
         btnImageViewer.setFont(font);
         btnAudio.setFont(font);
         btnVideo.setFont(font);
+        btnDialogs.setFont(font);
         btnProgressBar.setMaxWidth(Double.MAX_VALUE);
         btnImageViewer.setMaxWidth(Double.MAX_VALUE);
         btnAudio.setMaxWidth(Double.MAX_VALUE);
         btnVideo.setMaxWidth(Double.MAX_VALUE);
+        btnDialogs.setMaxWidth(Double.MAX_VALUE);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -87,6 +91,7 @@ public class AppInitializer extends Application {
         btnImageViewer.setOnAction(event -> showImageViewerStage());
         btnAudio.setOnAction(event -> showAudioPlayerStage());
         btnVideo.setOnAction(event -> showVideoPlayerStage());
+        btnDialogs.setOnAction(event -> showDialogStage());
     }
 
     private void showProgressBarStage() {
@@ -266,8 +271,8 @@ public class AppInitializer extends Application {
         Label lblStatus = new Label("Click to play the audio");
         VBox root = new VBox(btnOpen, img, lblStatus);
 
-        Image icnPlay = new Image(this.getClass().getResource("/icon/play.png").toString());
-        Image icnStop = new Image(this.getClass().getResource("/icon/stop.png").toString());
+        Image icnPlay = new Image(this.getClass().getResource("/img/play-button.png").toString());
+        Image icnStop = new Image(this.getClass().getResource("/img/stop.png").toString());
 
         img.setImage(icnPlay);
 
@@ -334,11 +339,226 @@ public class AppInitializer extends Application {
 
         stgVideoPlayer = new Stage();
         stgVideoPlayer.setTitle("Video Player Demo");
+        videoPlayerScene();
         stgVideoPlayer.show();
         stgVideoPlayer.centerOnScreen();
 
+
+        //stgVideoPlayer.setOnCloseRequest(event -> stgVideoPlayer = null);
+    }
+    private void videoPlayerScene(){
+        ImageView imgPlay = new ImageView();
+        Image icnPlay = new Image(this.getClass().getResource("/img/play-button (1).png").toString());
+        imgPlay.setImage(icnPlay);
+        imgPlay.setFitHeight(80);
+        imgPlay.setFitWidth(80);
+
+        ImageView imgPause = new ImageView();
+        Image icnPause = new Image(this.getClass().getResource("/img/pause.png").toString());
+        imgPause.setImage(icnPause);
+        imgPause.setFitHeight(80);
+        imgPause.setFitWidth(80);
+
+        ImageView imgStop = new ImageView();
+        Image icnStop = new Image(this.getClass().getResource("/img/stop-button.png").toString());
+        imgStop.setImage(icnStop);
+        imgStop.setFitWidth(80);
+        imgStop.setFitHeight(80);
+
+        ImageView imgBrowse = new ImageView();
+        Image icnBrowse = new Image(this.getClass().getResource("/img/folder.png").toString());
+        imgBrowse.setImage(icnBrowse);
+        imgBrowse.setFitHeight(80);
+        imgBrowse.setFitWidth(80);
+
+        ImageView imgVolume = new ImageView();
+        Image icnVolume = new Image(this.getClass().getResource("/img/volume-up.png").toString());
+        imgVolume.setImage(icnVolume);
+        imgVolume.setFitWidth(80);
+        imgVolume.setFitHeight(80);
+
+        ImageView imgMute = new ImageView();
+        Image icnMute = new Image(this.getClass().getResource("/img/mute.png").toString());
+        imgMute.setImage(icnMute);
+        imgMute.setFitWidth(80);
+        imgMute.setFitHeight(80);
+
+        Label lblPlay = new Label("",imgPlay);
+        Label iblPause = new Label("",imgPause);
+        Label lblStop = new Label("", imgStop);
+        Label lblBrowse = new Label("",imgBrowse);
+        Label lblVolume = new Label("",imgVolume);
+
+        Slider slider = new Slider(0,1,0.5);
+        HBox hBox = new HBox(lblPlay,lblStop,lblBrowse,lblVolume,slider);
+        hBox.setSpacing(15);
+        hBox.setPadding(new Insets(10));
+        hBox.setAlignment(Pos.CENTER);
+        hBox.setPrefHeight(100);
+        hBox.setPrefWidth(800);
+        hBox.setBackground(Background.fill(Color.GRAY));
+        HBox.setHgrow(lblBrowse,Priority.ALWAYS);
+        lblBrowse.setMaxWidth(Double.MAX_VALUE);
+        lblBrowse.setAlignment(Pos.CENTER);
+
+        Image imgBackGround = new Image(this.getClass().getResource("/img/play.png").toString());
+        ImageView imgViewBackGround = new ImageView(imgBackGround);
+        imgViewBackGround.setFitWidth(120);
+        imgViewBackGround.setFitHeight(120);
+        Label lblBackGround = new Label("",imgViewBackGround);
+
+        MediaView mediaView = new MediaView();
+        mediaView.setPreserveRatio(true);
+        StackPane stackPane = new StackPane(lblBackGround,mediaView);
+        stackPane.setBackground(Background.fill(Color.BLACK));
+
+        AnchorPane root = new AnchorPane(stackPane,hBox);
+
+        AnchorPane.setBottomAnchor(hBox,0.0);
+        AnchorPane.setLeftAnchor(hBox,0.0);
+        AnchorPane.setRightAnchor(hBox,0.0);
+
+        AnchorPane.setBottomAnchor(stackPane,100.0);
+        AnchorPane.setLeftAnchor(stackPane,0.0);
+        AnchorPane.setRightAnchor(stackPane,0.0);
+        AnchorPane.setTopAnchor(stackPane,0.0);
+
+        stgVideoPlayer.setScene(new Scene(root));
+        stgVideoPlayer.setMinWidth(700);
+        stgVideoPlayer.setMinHeight(700);
+        stgVideoPlayer.setWidth(800);
+        stgVideoPlayer.setHeight(800);
+
+        mediaView.fitWidthProperty().bind(stackPane.widthProperty());
+        mediaView.fitHeightProperty().bind(stackPane.heightProperty());
+
+        lblBrowse.setOnMouseClicked(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Video Files,","*.mp4","*.avi","*.flv"));
+            fileChooser.setTitle("Open a video file");
+            File videoFile = fileChooser.showOpenDialog(stgVideoPlayer);
+            if (videoFile != null){
+                Media media = new Media(videoFile.toURI().toString());
+                MediaPlayer videoPlayer = new MediaPlayer(media);
+                mediaView.setMediaPlayer(videoPlayer);
+                mediaView.toFront();
+                videoPlayer.play();
+                lblPlay.setGraphic(imgPause);
+
+                videoPlayer.volumeProperty().bind(slider.valueProperty());
+                //new SimpleDoubleProperty()
+                //new SimpleBooleanProperty()
+                //new SimpleStringProperty()
+                //new SimpleFloatProperty()
+                //new SimpleIntegerProperty()
+                //new SimpleLongProperty()  //to convert primitive to observable
+                videoPlayer.muteProperty().bind(isMute);
+            }
+        });
+        lblStop.setOnMouseClicked(event -> {
+            MediaPlayer videoPlayer = mediaView.getMediaPlayer();
+            if (videoPlayer != null){
+                videoPlayer.stop();
+                mediaView.setMediaPlayer(null);
+                lblBackGround.toFront();
+                lblPlay.setGraphic(imgPlay);
+            }
+        });
+        lblPlay.setOnMouseClicked(event -> {
+            MediaPlayer videoPlayer = mediaView.getMediaPlayer();
+            if (videoPlayer == null) return;
+            if (videoPlayer.getStatus() == MediaPlayer.Status.PLAYING){
+                videoPlayer.pause();
+                lblPlay.setGraphic(imgPlay);
+            }
+            else{
+                videoPlayer.play();
+                lblPlay.setGraphic(imgPause);
+            }
+        });
+        lblVolume.setOnMouseClicked(event -> {
+            isMute.set(!isMute.get());
+            if (isMute.get()){
+                lblVolume.setGraphic(imgMute);
+            }
+            else {
+                lblVolume.setGraphic(imgVolume);
+            }
+        });
+        stgVideoPlayer.setOnCloseRequest(event -> {
+            MediaPlayer videoPlayer = mediaView.getMediaPlayer();
+            if (videoPlayer != null) videoPlayer.stop();
+            mediaView.setMediaPlayer(null);
+            stgVideoPlayer = null;
+        });
+    }
+
+    private void showDialogStage(){
+        if (stgDialogs != null) return;
+
+        stgDialogs = new Stage();
+        stgDialogs.setTitle("FX Dialogs");
+        dialogScene();
+        stgDialogs.show();
+        stgDialogs.centerOnScreen();
+
         /* Setting Event Listeners */
 
-        stgVideoPlayer.setOnCloseRequest(event -> stgVideoPlayer = null);
+        stgDialogs.setOnCloseRequest(event -> stgDialogs = null);
+    }
+    private void dialogScene(){
+        Button btnErrMsg = new Button("Error Message");
+        Button btnWarMsg = new Button("Warning Message");
+        Button btnInfoMsg = new Button("Information Message");
+        Button btnConfirmationMsg = new Button("Confirmation Message");
+        Button btnCustomMsg = new Button("Custom Message");
+
+        VBox root = new VBox(btnErrMsg,btnWarMsg,btnInfoMsg,btnConfirmationMsg,btnCustomMsg);
+        root.setSpacing(10);
+        root.setPadding(new Insets(10));
+
+        for (Node control : root.getChildren()) {
+            Button btn = (Button) control;
+            btn.setMaxWidth(Double.MAX_VALUE);
+            btn.setFont(new Font(16));
+        }
+
+        Scene scene = new Scene(root);
+        stgDialogs.setScene(scene);
+        stgDialogs.sizeToScene();
+        stgDialogs.setWidth(400);
+
+        btnErrMsg.setOnAction(event -> {
+            Alert errAlert = new Alert(Alert.AlertType.ERROR,"Something went wrong!");
+            errAlert.show();
+        });
+        btnWarMsg.setOnAction(event -> {
+            Alert warningAlert = new Alert(Alert.AlertType.WARNING,"If you do this, you will die");
+            warningAlert.show();
+        });
+        btnInfoMsg.setOnAction(event -> {
+            Alert infoAlert = new Alert(Alert.AlertType.INFORMATION, "Here is the information");
+            infoAlert.show();
+        });
+        btnConfirmationMsg.setOnAction(event -> {
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION,"are you sure to delete this file",ButtonType.YES,ButtonType.NO);
+            Optional<ButtonType> button = confirmationAlert.showAndWait();
+            if (button.isPresent() && button.get() == ButtonType.YES){
+                System.out.println("Yes");
+            }
+            else {
+                System.out.println("No");
+            }
+        });
+        btnCustomMsg.setOnAction(event -> {
+            Alert customAlert = new Alert(Alert.AlertType.NONE, "This is the custom message",ButtonType.OK,ButtonType.NEXT,ButtonType.PREVIOUS);
+            customAlert.setTitle("This is alert title");
+            customAlert.setHeaderText("This is the Header Text");
+
+            Image imgIcon = new Image(this.getClass().getResource("/img/play.png").toString(),32,31,true,true);
+            ImageView imgView = new ImageView(imgIcon);
+            customAlert.setGraphic(imgView);
+            customAlert.show();
+        });
     }
 }
