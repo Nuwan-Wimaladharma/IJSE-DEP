@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep10.app.controller.MainViewController">
+   <children>
+      <Canvas fx:id="cnvMain" height="759.0" layoutX="-15.0" layoutY="-34.0" onMouseClicked="#cnvMainOnMouseClicked" onMouseDragged="#cnvMainOnMouseDragged" onMousePressed="#cnvMainOnMousePressed" onMouseReleased="#cnvMainOnMouseReleased" width="1062.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <ToolBar layoutX="70.0" layoutY="96.0" orientation="VERTICAL" prefHeight="522.0" prefWidth="60.0">
+        <items>
+          <Button fx:id="btnDragToolBar" mnemonicParsing="false" onAction="#btnDragToolBarOnAction" prefHeight="6.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="14.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/dots.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Drag Toolbar">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Tooltip>
+               </tooltip>
+            </Button>
+            <Button fx:id="btnRectangle" mnemonicParsing="false" onAction="#btnRectangleOnAction" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/rectangle.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Rectangle">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Tooltip>
+               </tooltip>
+            </Button>
+            <Button fx:id="btnRoundedRectangle" layoutX="10.0" layoutY="38.0" mnemonicParsing="false" onAction="#btnRoundedRectangleOnAction" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/rounded-rectangle.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Rounded Rectangle">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Tooltip>
+               </tooltip>
+            </Button>
+            <Button fx:id="btnCircle" layoutX="10.0" layoutY="92.0" mnemonicParsing="false" onAction="#btnCircleOnAction" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/dry-clean.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Circle">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
+            </Button>
+            <Button fx:id="btnEllipse" layoutX="10.0" layoutY="146.0" mnemonicParsing="false" onAction="#btnEllipseOnAction" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/ellipse.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Ellipse">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
+            </Button>
+            <Button fx:id="btnPencil" layoutX="10.0" layoutY="200.0" mnemonicParsing="false" onAction="#btnPencilOnAction" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pencil.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Pencil">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
+            </Button>
+            <Button fx:id="btnEraser" layoutX="10.0" layoutY="254.0" mnemonicParsing="false" onAction="#btnEraserOnAction" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/eraser.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Eraser">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
+            </Button>
+            <Button fx:id="btnText" layoutX="10.0" layoutY="308.0" mnemonicParsing="false" onAction="#btnTextOnAction" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/text (1).png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Text">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
+            </Button>
+            <Button fx:id="btnStrokeColorPicker" mnemonicParsing="false" onAction="#btnStrokeColorPickerOnAction" prefHeight="51.0" prefWidth="50.0">
+               <padding>
+                  <Insets left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <graphic>
+                  <ColorPicker fx:id="clrStroke" />
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Stroke Color Picker">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
+            </Button>
+            <Button fx:id="btnFillColorPicker" layoutX="10.0" layoutY="416.0" mnemonicParsing="false" onAction="#btnFillColorOnAction" prefHeight="51.0" prefWidth="50.0">
+               <padding>
+                  <Insets left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <graphic>
+                  <ColorPicker fx:id="clrFill" />
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Fill Color Picker">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
+            </Button>
+        </items>
+         <opaqueInsets>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </ToolBar>
+   </children>
+</AnchorPane>
