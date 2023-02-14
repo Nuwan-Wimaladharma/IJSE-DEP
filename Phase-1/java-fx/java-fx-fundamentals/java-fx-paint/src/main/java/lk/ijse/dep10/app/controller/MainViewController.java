@@ -7,6 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
 public class MainViewController {
 
@@ -71,21 +72,38 @@ public class MainViewController {
     @FXML
     void btnRectangleOnAction(ActionEvent event) {
         rectangle = true;
+        roundedRectangle = false;
+        ellipse = false;
+        GraphicsContext gc = cnvMain.getGraphicsContext2D();
+        gc.setFill(Color.TRANSPARENT);
     }
 
     @FXML
     void btnRoundedRectangleOnAction(ActionEvent event) {
-
+        roundedRectangle = true;
+        rectangle = false;
+        ellipse = false;
+        GraphicsContext gc = cnvMain.getGraphicsContext2D();
+        gc.setFill(Color.TRANSPARENT);
     }
 
     @FXML
     void btnCircleOnAction(ActionEvent event) {
-
+        circle = true;
+        rectangle = false;
+        roundedRectangle = false;
+        ellipse = false;
+        GraphicsContext gc = cnvMain.getGraphicsContext2D();
+        gc.setFill(Color.TRANSPARENT);
     }
 
     @FXML
     void btnEllipseOnAction(ActionEvent event) {
-
+        ellipse = true;
+        rectangle = false;
+        roundedRectangle = false;
+        GraphicsContext gc = cnvMain.getGraphicsContext2D();
+        gc.setFill(Color.TRANSPARENT);
     }
 
     @FXML
@@ -151,6 +169,65 @@ public class MainViewController {
                 gc.fillRect((mouseStartX + width),(mouseStartY + height),(-1 * width),(-1 * height));
             }
         }
+        if (roundedRectangle){
+            width = event.getX() - mouseStartX;
+            height = event.getY() - mouseStartY;
+            if (width > 0 && height > 0){
+                GraphicsContext gc = cnvMain.getGraphicsContext2D();
+                gc.clearRect(0,0,cnvMain.getWidth(), cnvMain.getHeight());
+                gc.strokeRoundRect(mouseStartX,mouseStartY,width,height,20,20);
+                gc.fillRoundRect(mouseStartX,mouseStartY,width,height,20,20);
+            }
+            if (width < 0 && height > 0){
+                GraphicsContext gc = cnvMain.getGraphicsContext2D();
+                gc.clearRect(0,0,cnvMain.getWidth(), cnvMain.getHeight());
+                gc.strokeRoundRect((mouseStartX + width),mouseStartY,(-1 * width),height,20,20);
+                gc.fillRoundRect((mouseStartX + width),mouseStartY,(-1 * width),height,20,20);
+            }
+            if (height < 0 && width > 0){
+                GraphicsContext gc = cnvMain.getGraphicsContext2D();
+                gc.clearRect(0,0,cnvMain.getWidth(), cnvMain.getHeight());
+                gc.strokeRoundRect(mouseStartX,(mouseStartY+height),width,(-1 * height),20,20);
+                gc.fillRoundRect(mouseStartX,(mouseStartY+height),width,(-1 * height),20,20);
+            }
+            if (height < 0 && width < 0){
+                GraphicsContext gc = cnvMain.getGraphicsContext2D();
+                gc.clearRect(0,0,cnvMain.getWidth(), cnvMain.getHeight());
+                gc.strokeRoundRect((mouseStartX + width),(mouseStartY + height),(-1 * width),(-1 * height),20,20);
+                gc.fillRoundRect((mouseStartX + width),(mouseStartY + height),(-1 * width),(-1 * height),20,20);
+            }
+        }
+        if (circle){
+
+        }
+        if (ellipse){
+            width = event.getX() - mouseStartX;
+            height = event.getY() - mouseStartY;
+            if (width > 0 && height > 0){
+                GraphicsContext gc = cnvMain.getGraphicsContext2D();
+                gc.clearRect(0,0,cnvMain.getWidth(), cnvMain.getHeight());
+                gc.strokeOval(mouseStartX,mouseStartY,width,height);
+                gc.fillOval(mouseStartX,mouseStartY,width,height);
+            }
+            if (width < 0 && height > 0){
+                GraphicsContext gc = cnvMain.getGraphicsContext2D();
+                gc.clearRect(0,0,cnvMain.getWidth(), cnvMain.getHeight());
+                gc.strokeOval((mouseStartX + width),mouseStartY,(-1 * width),height);
+                gc.fillOval((mouseStartX + width),mouseStartY,(-1 * width),height);
+            }
+            if (height < 0 && width > 0){
+                GraphicsContext gc = cnvMain.getGraphicsContext2D();
+                gc.clearRect(0,0,cnvMain.getWidth(), cnvMain.getHeight());
+                gc.strokeOval(mouseStartX,(mouseStartY+height),width,(-1 * height));
+                gc.fillOval(mouseStartX,(mouseStartY+height),width,(-1 * height));
+            }
+            if (height < 0 && width < 0){
+                GraphicsContext gc = cnvMain.getGraphicsContext2D();
+                gc.clearRect(0,0,cnvMain.getWidth(), cnvMain.getHeight());
+                gc.strokeOval((mouseStartX + width),(mouseStartY + height),(-1 * width),(-1 * height));
+                gc.fillOval((mouseStartX + width),(mouseStartY + height),(-1 * width),(-1 * height));
+            }
+        }
 
     }
 
@@ -162,30 +239,6 @@ public class MainViewController {
 
     @FXML
     void cnvMainOnMouseReleased(MouseEvent event) {
-        if (rectangle){
-            width = event.getX() - mouseStartX;
-            height = event.getY() - mouseStartY;
-            if (width > 0 && height > 0){
-                GraphicsContext gc = cnvMain.getGraphicsContext2D();
-                gc.strokeRect(mouseStartX,mouseStartY,width,height);
-                gc.fillRect(mouseStartX,mouseStartY,width,height);
-            }
-            if (width < 0 && height > 0){
-                GraphicsContext gc = cnvMain.getGraphicsContext2D();
-                gc.strokeRect((mouseStartX + width),mouseStartY,(-1 * width),height);
-                gc.fillRect((mouseStartX + width),mouseStartY,(-1 * width),height);
-            }
-            if (height < 0 && width > 0){
-                GraphicsContext gc = cnvMain.getGraphicsContext2D();
-                gc.strokeRect(mouseStartX,(mouseStartY+height),width,(-1 * height));
-                gc.fillRect(mouseStartX,(mouseStartY+height),width,(-1 * height));
-            }
-            if (height < 0 && width < 0){
-                GraphicsContext gc = cnvMain.getGraphicsContext2D();
-                gc.strokeRect((mouseStartX + width),(mouseStartY + height),(-1 * width),(-1 * height));
-                gc.fillRect((mouseStartX + width),(mouseStartY + height),(-1 * width),(-1 * height));
-            }
-        }
     }
 
 }

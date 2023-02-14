@@ -1,4 +1,5 @@
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -29,7 +30,10 @@ public class Testing {
 
         int[] nums = new int[]{5,4,3,2,1};
         //System.out.println(Arrays.toString(selectionSortRecursion(nums)));
-
+        ArrayList list = new ArrayList<>();
+        list.add(4);
+        list.add("Nuwan");
+        System.out.println(list);
 
 
     }

@@ -2,9 +2,11 @@ package lk.ijse.dep10.app.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -55,6 +57,7 @@ public class MainFormController {
     private double mouseStartY;
     private double width;
     private double height;
+    private WritableImage snapshot;
 
     public void cvnMainOnMouseDragged(MouseEvent mouseEvent) {
         width = mouseEvent.getX() - mouseStartX;
@@ -62,6 +65,7 @@ public class MainFormController {
         if (width > 0 && height > 0){
             GraphicsContext gc = cnvMain.getGraphicsContext2D();
             gc.clearRect(0,0,cnvMain.getWidth(), cnvMain.getHeight());
+            gc.drawImage(snapshot,0,0);
             //gc.fillRect(mouseStartX,mouseStartY,width,height);
             gc.strokeRect(mouseStartX,mouseStartY,width,height);
         }
@@ -89,31 +93,34 @@ public class MainFormController {
     public void cnvMainOnMousePressed(MouseEvent mouseEvent) {
         mouseStartX = mouseEvent.getX();
         mouseStartY = mouseEvent.getY();
+        snapshot = cnvMain.snapshot(new SnapshotParameters(),null);
+
     }
 
     public void cnvMainOnMouseReleased(MouseEvent mouseEvent) {
-        width = mouseEvent.getX() - mouseStartX;
-        height = mouseEvent.getY() - mouseStartY;
-        if (width > 0 && height > 0){
-            GraphicsContext gc = cnvMain.getGraphicsContext2D();
-            //gc.fillRect(mouseStartX,mouseStartY,width,height);
-            gc.strokeRect(mouseStartX,mouseStartY,width,height);
-        }
-        if (width < 0 && height > 0){
-            GraphicsContext gc = cnvMain.getGraphicsContext2D();
-            //gc.fillRect((mouseStartX + width),mouseStartY,(-1 * width),height);
-            gc.strokeRect((mouseStartX + width),mouseStartY,(-1 * width),height);
-        }
-        if (height < 0 && width > 0){
-            GraphicsContext gc = cnvMain.getGraphicsContext2D();
-            //gc.fillRect(mouseStartX,(mouseStartY+height),width,(-1 * height));
-            gc.strokeRect(mouseStartX,(mouseStartY+height),width,(-1 * height));
-        }
-        if (height < 0 && width < 0){
-            GraphicsContext gc = cnvMain.getGraphicsContext2D();
-            //gc.fillRect((mouseStartX + width),(mouseStartY + height),(-1 * width),(-1 * height));
-            gc.strokeRect((mouseStartX + width),(mouseStartY + height),(-1 * width),(-1 * height));
-        }
+//        width = mouseEvent.getX() - mouseStartX;
+//        height = mouseEvent.getY() - mouseStartY;
+//        if (width > 0 && height > 0){
+//            GraphicsContext gc = cnvMain.getGraphicsContext2D();
+//            gc.drawImage(snapshot,0,0);
+//            //gc.fillRect(mouseStartX,mouseStartY,width,height);
+//            gc.strokeRect(mouseStartX,mouseStartY,width,height);
+//        }
+//        if (width < 0 && height > 0){
+//            GraphicsContext gc = cnvMain.getGraphicsContext2D();
+//            //gc.fillRect((mouseStartX + width),mouseStartY,(-1 * width),height);
+//            gc.strokeRect((mouseStartX + width),mouseStartY,(-1 * width),height);
+//        }
+//        if (height < 0 && width > 0){
+//            GraphicsContext gc = cnvMain.getGraphicsContext2D();
+//            //gc.fillRect(mouseStartX,(mouseStartY+height),width,(-1 * height));
+//            gc.strokeRect(mouseStartX,(mouseStartY+height),width,(-1 * height));
+//        }
+//        if (height < 0 && width < 0){
+//            GraphicsContext gc = cnvMain.getGraphicsContext2D();
+//            //gc.fillRect((mouseStartX + width),(mouseStartY + height),(-1 * width),(-1 * height));
+//            gc.strokeRect((mouseStartX + width),(mouseStartY + height),(-1 * width),(-1 * height));
+//        }
     }
     public void clrFillOnAction(ActionEvent actionEvent) {
         GraphicsContext gc = cnvMain.getGraphicsContext2D();

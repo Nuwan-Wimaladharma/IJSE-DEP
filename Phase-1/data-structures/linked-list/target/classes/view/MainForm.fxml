@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep10.ds.controller.MainFormController">
+   <children>
+      <Label alignment="CENTER" layoutX="36.0" layoutY="24.0" text="Linked List Demos" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="10.0">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <Label fx:id="btnNumber" layoutX="32.0" layoutY="75.0" text="Number :" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="75.0">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <TextField fx:id="btnTextField" layoutX="175.0" layoutY="78.0" onAction="#btnTextFieldOnAction" prefHeight="33.0" prefWidth="383.0" promptText="Enter a Number" AnchorPane.leftAnchor="177.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="75.0" />
+      <HBox layoutX="40.0" layoutY="163.0" maxWidth="1.7976931348623157E308" spacing="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+         <children>
+            <Button fx:id="btnPrintAll" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnPrintAllOnAction" prefHeight="30.0" prefWidth="160.0" text="PRINT ALL" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnPrint" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnPrintOnAction" prefHeight="30.0" prefWidth="160.0" text="PRINT" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnRemove" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnRemoveOnAction" prefHeight="30.0" prefWidth="160.0" text="REMOVE" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox layoutX="40.0" layoutY="211.0" maxWidth="1.7976931348623157E308" spacing="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+         <children>
+            <Button fx:id="btnContains" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnContainsOnAction" prefHeight="30.0" prefWidth="160.0" text="CONTAINS" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnSize" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnSizeOnAction" prefHeight="30.0" prefWidth="160.0" text="SIZE" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnClear" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnClearOnAction" prefHeight="30.0" prefWidth="160.0" text="CLEAR" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <Button fx:id="btnAdd" defaultButton="true" layoutX="175.0" layoutY="119.0" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="33.0" prefWidth="77.0" text="ADD" AnchorPane.leftAnchor="177.0" AnchorPane.rightAnchor="346.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
