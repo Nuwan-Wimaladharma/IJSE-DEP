@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="932.0" prefWidth="850.0" stylesheets="@../css/MainViewStyles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep10.app.controller.MainViewController">
+   <children>
+      <HBox alignment="CENTER" layoutX="21.0" layoutY="32.0" prefHeight="31.0" prefWidth="816.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Student Registration Form" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox layoutX="10.0" layoutY="95.0" prefHeight="33.0" prefWidth="826.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Button fx:id="btnAddNewStudent" mnemonicParsing="false" onAction="#btnAddNewStudentOnAction" text="Student +" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox layoutX="20.0" layoutY="161.0" prefHeight="21.0" prefWidth="810.0" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Label text="Student ID         :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblStudentID" maxWidth="1.7976931348623157E308" text="Generated ID" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox layoutX="20.0" layoutY="209.0" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Label text="Student Name   :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtStudentName" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="626.0" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox layoutX="10.0" layoutY="259.0" prefHeight="24.0" prefWidth="829.0" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Label text="Gender              :" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="rdoMale" mnemonicParsing="false" onAction="#rdoMaleOnAction" text="MALE" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="rdoFemale" mnemonicParsing="false" onAction="#rdoFemaleOnAction" text="FEMALE" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </RadioButton>
+         </children>
+      </HBox>
+      <HBox layoutX="20.0" layoutY="303.0" prefHeight="33.0" prefWidth="810.0" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Label text="Contact             :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtContact" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="256.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="33.0" prefWidth="102.0" text="ADD">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox layoutX="195.0" layoutY="366.0" prefHeight="109.0" prefWidth="634.0" spacing="20.0" AnchorPane.leftAnchor="196.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <ListView fx:id="lstContacts" maxWidth="1.7976931348623157E308" prefHeight="109.0" prefWidth="252.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#btnRemoveOnAction" text="REMOVE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox layoutX="20.0" layoutY="506.0" prefHeight="30.0" prefWidth="810.0" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Label text="Degree              :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cmbDegrees" maxWidth="1.7976931348623157E308" onAction="#cmbDegreesOnAction" prefHeight="30.0" prefWidth="252.0" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="txtShortCode" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="356.0" text="No Degree hasn't been selected yet" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox layoutX="20.0" layoutY="575.0" prefHeight="109.0" prefWidth="810.0" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Label text="Modules            :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ListView fx:id="lstAllModules" maxWidth="1.7976931348623157E308" prefHeight="109.0" prefWidth="273.0" HBox.hgrow="ALWAYS" />
+            <VBox alignment="CENTER" prefHeight="109.0" prefWidth="40.0" spacing="20.0">
+               <children>
+                  <Button fx:id="btnSelectModule" mnemonicParsing="false" onAction="#btnSelectModuleOnAction" text="&gt;">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnUnselectModule" mnemonicParsing="false" onAction="#btnUnselectModuleOnAction" text="&lt;">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <ListView fx:id="lstSelectedModules" maxWidth="1.7976931348623157E308" prefHeight="109.0" prefWidth="278.0" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox layoutX="188.0" layoutY="700.0" prefHeight="25.0" prefWidth="642.0" AnchorPane.leftAnchor="188.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <CheckBox fx:id="chkPartTime" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#chkPartTimeOnAction" text="Part Time" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </CheckBox>
+         </children>
+      </HBox>
+      <HBox layoutX="188.0" layoutY="742.0" prefHeight="33.0" prefWidth="642.0" spacing="20.0" AnchorPane.leftAnchor="188.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Button fx:id="btnSave" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="33.0" prefWidth="103.0" text="SAVE" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="33.0" prefWidth="102.0" text="DELETE" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox layoutX="188.0" layoutY="787.0" AnchorPane.leftAnchor="188.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <ListView fx:id="lstStudentDetails" maxWidth="1.7976931348623157E308" prefHeight="109.0" prefWidth="642.0" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

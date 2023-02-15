@@ -58,6 +58,7 @@ public class MainViewController {
         lstAllModules.getSelectionModel().selectedItemProperty().addListener((value,previous,current) -> {
             if (current == null){
                 btnSelectModules.setDisable(true);
+                return;
             }
             if (current != null){
                 btnSelectModules.setDisable(false);
@@ -66,6 +67,7 @@ public class MainViewController {
         lstSelectedModules.getSelectionModel().selectedItemProperty().addListener((value,previous,current) -> {
             if (current == null){
                 btnUnselectModules.setDisable(true);
+                return;
             }
             if (current != null){
                 btnUnselectModules.setDisable(false);
@@ -80,10 +82,36 @@ public class MainViewController {
             if (current != null){
                 btnRemove.setDisable(false);
             }
-            txtStudentContact.requestFocus();
+            //txtStudentContact.requestFocus();
+        });
+        lstStudentDetails.getSelectionModel().selectedItemProperty().addListener((value,previous,current) -> {
+            if (current == null){
+                btnDelete.setDisable(true);
+                return;
+            }
+            if (current != null){
+                ObservableList<String> contactNumbers = lstContacts.getItems();
+                ObservableList<String> selectedModules = lstSelectedModules.getItems();
+                btnDelete.setDisable(false);
+
+                txtStudentID.setText(current.id);
+                txtStudentName.setText(current.name);
+                //lstContacts.setId(String.valueOf(current.contactNumbers));
+                //lstSelectedModules.setId(String.valueOf(current.selectedModules));
+                for (int i = 0; i < current.contactNumbers.size(); i++) {
+                    contactNumbers.add((String) current.contactNumbers.get(i));
+                }
+                for (int i = 0; i < current.selectedModules.size(); i++) {
+                    selectedModules.add((String) current.selectedModules.get(i));
+                }
+                //btnSave.setDisable(true);
+                btnAdd.setDisable(false);
+                //btnNewStudent.setDisable(true);
+            }
         });
     }
 
+    ArrayList contactNumbersTemp = new ArrayList<>();
     @FXML
     void btnAddOnAction(ActionEvent event) {
         txtStudentContact.getStyleClass().remove("invalid");
@@ -105,6 +133,7 @@ public class MainViewController {
         ObservableList<String> contactNumbers = lstContacts.getItems();
         if (isValidPhoneNumber){
             contactNumbers.add(contactNumber);
+            contactNumbersTemp.add(contactNumber);
             //btnRemove.setDisable(false);
             //btnSelectModules.setDisable(false);
             txtStudentContact.clear();
@@ -172,17 +201,32 @@ public class MainViewController {
             return;
         }
         if (isValid == true){
-            ObservableList<Student> studentDetailsList= lstStudentDetails.getItems();
+            ObservableList<Student> studentDetailsList = lstStudentDetails.getItems();
+            Student student = new Student(txtStudentID.getText(),txtStudentName.getText(),contactNumbersTemp,selectedModulesTemp);
+            studentDetailsList.add(student);
+
+            txtStudentID.clear();
+            txtStudentName.clear();
+            txtStudentContact.clear();
+            contactNumbers.clear();
+            selectedModules.clear();
+            btnAdd.setDisable(true);
+            btnSave.setDisable(true);
+            btnNewStudent.setDisable(false);
         }
 
     }
 
+    ArrayList selectedModulesTemp = new ArrayList<>();
     @FXML
     void btnSelectModulesOnAction(ActionEvent event) {
         ObservableList<String> allModules = lstAllModules.getItems();
         ObservableList<String> selectedModules = lstSelectedModules.getItems();
         String selectedModule = lstAllModules.getSelectionModel().getSelectedItem();
-        selectedModules.add(selectedModule);
+        if (!selectedModules.contains(selectedModule)){
+            selectedModules.add(selectedModule);
+            selectedModulesTemp.add(selectedModule);
+        }
         lstAllModules.getSelectionModel().clearSelection();
         //btnUnselectModules.setDisable(false);
         //allModules.remove(selectedModule);
@@ -224,6 +268,8 @@ public class MainViewController {
         lstContacts.getStyleClass().remove("invalid");
         lstSelectedModules.getStyleClass().remove("invalid");
         idGenerateNumber += 1;
+
+        btnNewStudent.setDisable(true);
     }
     public ArrayList idGenerator(int x){
         ArrayList finalIds = new ArrayList<>();
