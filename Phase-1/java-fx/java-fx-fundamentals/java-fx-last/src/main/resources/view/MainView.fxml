@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="365.0" prefWidth="561.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep10.last.controller.MainViewController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="142.0" layoutY="41.0" text="Java FX Final App" AnchorPane.topAnchor="41.0">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <VBox alignment="CENTER" layoutX="18.0" layoutY="116.0" prefHeight="200.0" prefWidth="529.0" spacing="15.0">
+         <children>
+            <Button fx:id="btnListView" alignment="CENTER" mnemonicParsing="false" onAction="#btnListViewOnAction" prefHeight="30.0" prefWidth="320.0" text="List View">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnComboBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnComboBoxOnAction" prefHeight="30.0" prefWidth="320.0" text="Combo Box">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnTableView" alignment="CENTER" layoutX="10.0" layoutY="34.0" mnemonicParsing="false" onAction="#btnTableViewOnAction" prefHeight="30.0" prefWidth="320.0" text="Table View">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnSceneSceneCommunication" alignment="CENTER" layoutX="10.0" layoutY="58.0" mnemonicParsing="false" onAction="#btnSceneSceneCommunicationOnAction" prefHeight="30.0" prefWidth="320.0" text="Scene-Scene Communication">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

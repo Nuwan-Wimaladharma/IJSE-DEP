@@ -1,0 +1,20 @@
+#btnAdd,#btnSave,#btnNewStudent{
+    -fx-background-color: #37b437;
+    -fx-text-fill: white;
+    -fx-background-radius: 10px;
+}
+#btnAdd:hover, #btnSave:hover, #btnNewStudent:hover{
+    -fx-background-color: rgba(55, 180, 55, 0.78);
+}
+#btnRemove,#btnDelete{
+    -fx-background-color: #de3535;
+    -fx-text-fill: white;
+    -fx-background-radius: 10px;
+}
+#btnRemove:hover, #btnDelete:hover{
+    -fx-background-color: rgba(222, 53, 53, 0.82);
+}
+.invalid{
+    -fx-text-box-border: red;
+    -fx-focus-color: red;
+}

@@ -1,0 +1,38 @@
+#btnRemove,#btnDelete{
+    -fx-background-color: #ff0000;
+    -fx-background-radius: 10px;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+/*psudo claases*/
+#btnRemove:hover ,#btnDelete:hover{
+    -fx-background-color: rgba(255, 0, 0, 0.74);
+}
+#lstNames,#lstStudents{
+    -fx-font-size: 16px;
+}
+#btnNew{
+    -fx-background-color: green;
+    -fx-text-fill: white;
+    -fx-background-radius: 10px;
+}
+#btnNew:hover{
+    -fx-background-color: rgba(0, 128, 0, 0.63);
+}
+#btnSave{
+    -fx-background-color: blue;
+    -fx-text-fill: white;
+    -fx-background-radius: 10px;
+}
+#btnSave:hover{
+    -fx-background-color: rgba(0, 0, 255, 0.65);
+    -fx-text-fill: white;
+}
+.invalid{         /*CSS Class*/
+    /*-fx-border-width: 2px;*/
+    /*-fx-border-color: red;*/
+    /*-fx-border-radius: 5px;*/
+    -fx-text-box-border: red;
+    -fx-focus-color: red;
+}

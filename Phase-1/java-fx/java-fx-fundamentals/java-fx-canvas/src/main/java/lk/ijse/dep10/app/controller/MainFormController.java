@@ -95,6 +95,7 @@ public class MainFormController {
         mouseStartY = mouseEvent.getY();
         snapshot = cnvMain.snapshot(new SnapshotParameters(),null);
 
+
     }
 
     public void cnvMainOnMouseReleased(MouseEvent mouseEvent) {
