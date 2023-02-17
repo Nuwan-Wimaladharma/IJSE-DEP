@@ -23,6 +23,6 @@
     -fx-background-color: rgba(206, 38, 38, 0.77);
 }
 .invalid{
-    -fx-text-box-border: red;
+    -fx-text-box-border: red !important;
     -fx-focus-color: red;
 }

@@ -151,7 +151,13 @@ public class MainViewController {
         lstSelectedModules.getSelectionModel().selectedItemProperty().addListener((value, previous, current) -> {
             if (current == null){
                 btnUnselectModule.setDisable(true);
+                if (lstSelectedModules.getItems().size() >= 3){
+                    lstAllModules.getStyleClass().remove("invalid");
+                }
                 return;
+            }
+            if (lstSelectedModules.getItems().size() >= 3){
+                lstAllModules.getStyleClass().remove("invalid");
             }
             btnUnselectModule.setDisable(false);
         });
@@ -172,6 +178,12 @@ public class MainViewController {
             btnDelete.setDisable(false);
             btnSave.setDisable(false);
             btnAddNewStudent.setDisable(true);
+            txtStudentName.setDisable(false);
+            txtContact.setDisable(false);
+            rdoMale.setDisable(false);
+            rdoFemale.setDisable(false);
+            cmbDegrees.setDisable(false);
+            chkPartTime.setDisable(false);
 
             lblStudentID.setText(current.getId());
             txtStudentName.setText(current.getName());
@@ -256,12 +268,24 @@ public class MainViewController {
         txtStudentName.setDisable(false);
         lblStudentID.setText("Generated ID");
         rdoMale.setDisable(false);
+        if (rdoMale.getStyleClass().contains("invalid")){
+            rdoMale.getStyleClass().remove("invalid");
+        }
         rdoFemale.setDisable(false);
+        if (rdoFemale.getStyleClass().contains("invalid")){
+            rdoFemale.getStyleClass().remove("invalid");
+        }
         txtContact.setDisable(false);
+        if (txtContact.getStyleClass().contains("invalid")){
+            txtContact.getStyleClass().remove("invalid");
+        }
         cmbDegrees.setDisable(false);
         cmbDegrees.getSelectionModel().clearSelection();
         lblShortCode.setText("No Degree hasn't been selected");
         lstAllModules.setDisable(false);
+        if (lstAllModules.getStyleClass().contains("invalid")){
+            lstAllModules.getStyleClass().remove("invalid");
+        }
         lstSelectedModules.setDisable(false);
         chkPartTime.setDisable(false);
         btnSave.setDisable(false);
@@ -272,9 +296,9 @@ public class MainViewController {
         lstContacts.getItems().clear();
         lstAllModules.getItems().clear();
         lstSelectedModules.getItems().clear();
-        chkPartTime.setSelected(false);
-        rdoMale.setSelected(false);
-        rdoFemale.setSelected(false);
+        //chkPartTime.setSelected(false);
+        //rdoMale.setSelected(false);
+        //rdoFemale.setSelected(false);
     }
 
     @FXML
@@ -332,13 +356,13 @@ public class MainViewController {
 
         if (lstSelectedModules.getItems().size() < 3){
             isDataValid = false;
-            lstSelectedModules.getStyleClass().add("invalid");
+            lstAllModules.getStyleClass().add("invalid");
             lstAllModules.requestFocus();
         }
 
         if (lstContacts.getItems().size() < 1){
             isDataValid = false;
-            lstContacts.getStyleClass().add("invalid");
+            txtContact.getStyleClass().add("invalid");
             txtContact.requestFocus();
         }
 
@@ -387,6 +411,25 @@ public class MainViewController {
             btnSave.setDisable(true);
         }
         btnAddNewStudent.setDisable(false);
+        lblStudentID.setText("Generated ID");
+        txtStudentName.clear();
+        txtStudentName.setDisable(true);
+        txtStudentName.getStyleClass().remove("invalid");
+        txtContact.clear();
+        txtContact.setDisable(true);
+        lstContacts.getItems().clear();
+        lstAllModules.getItems().clear();
+        lstSelectedModules.getItems().clear();
+        chkPartTime.setSelected(false);
+        chkPartTime.setDisable(true);
+        rdoMale.setSelected(false);
+        rdoMale.setDisable(true);
+        rdoFemale.setSelected(false);
+        rdoFemale.setDisable(true);
+        cmbDegrees.getSelectionModel().clearSelection();
+        cmbDegrees.setDisable(true);
+        lblShortCode.setText("No Degree hasn't been selected");
+
         //btnAddNewStudent.fire();
     }
 
