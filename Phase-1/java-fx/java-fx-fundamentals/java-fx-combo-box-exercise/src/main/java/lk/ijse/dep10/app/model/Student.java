@@ -1,8 +1,8 @@
 package lk.ijse.dep10.app.model;
 
+import javafx.scene.control.SingleSelectionModel;
 import lk.ijse.dep10.app.util.Gender;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Student {
@@ -11,6 +11,7 @@ public class Student {
     private Gender gender;
     private ArrayList contacts;
     private String degree;
+    private ArrayList allModules;
     private ArrayList modules;
     private String partTime;
 
@@ -54,6 +55,14 @@ public class Student {
         this.degree = degree;
     }
 
+    public ArrayList getAllModules() {
+        return allModules;
+    }
+
+    public void setAllModules(ArrayList allModules) {
+        this.allModules = allModules;
+    }
+
     public ArrayList getModules() {
         return modules;
     }
@@ -73,12 +82,13 @@ public class Student {
     public Student() {
     }
 
-    public Student(String id, String name, Gender gender, ArrayList contacts, String degree, ArrayList modules, String partTime) {
+    public Student(String id, String name, Gender gender, ArrayList contacts, String degree, ArrayList allModules, ArrayList modules, String partTime) {
         this.id = id;
         this.name = name;
         this.gender = gender;
         this.contacts = contacts;
         this.degree = degree;
+        this.allModules = allModules;
         this.modules = modules;
         this.partTime = partTime;
     }

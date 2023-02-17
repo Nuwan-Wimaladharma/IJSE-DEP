@@ -9,6 +9,7 @@ import lk.ijse.dep10.app.model.Student;
 import lk.ijse.dep10.app.util.Gender;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class MainViewController {
 
@@ -101,6 +102,7 @@ public class MainViewController {
         degreePrograms.addAll("Engineering","Medicine","Management","Physical","Information Technology");
 
         ObservableList<String> allModules = lstAllModules.getItems();
+        ObservableList<String> selectedModules = lstSelectedModules.getItems();
 
         cmbDegrees.getSelectionModel().selectedItemProperty().addListener((value,previous,current) -> {
             if (current == null){
@@ -108,26 +110,31 @@ public class MainViewController {
             }
             if (current.equals("Engineering")){
                 allModules.clear();
+                selectedModules.clear();
                 lblShortCode.setText("ENG");
                 allModules.addAll("Mathematics","Mechanics","Material Science","Electronic and Electrical","Hydraulic Engineering");
             }
             if (current.equals("Medicine")){
                 allModules.clear();
+                selectedModules.clear();
                 lblShortCode.setText("MED");
                 allModules.addAll("Anatomy","Venereology","Neurology","Orthopaedic Surgery","Cardiology");
             }
             if (current.equals("Management")){
                 allModules.clear();
+                selectedModules.clear();
                 lblShortCode.setText("MNGT");
                 allModules.addAll("Digital Analytics","Marketing Pathway","Digital Business Pathway","Strategic Management","Global Marketing Management");
             }
             if (current.equals("Physical")){
                 allModules.clear();
+                selectedModules.clear();
                 lblShortCode.setText("PHY");
                 allModules.addAll("Applied Mathematics","Combined Mathematics","Physics","Chemistry","Information and Communication Technology (ICT)");
             }
             if (current.equals("Information Technology")){
                 allModules.clear();
+                selectedModules.clear();
                 lblShortCode.setText("IT");
                 allModules.addAll("Data Science","Software Engineering","Cyber Security","Information Systems Engineering","Computer Science");
             }
@@ -155,6 +162,39 @@ public class MainViewController {
                 return;
             }
             btnRemove.setDisable(false);
+        });
+
+        tblStudentDetails.getSelectionModel().selectedItemProperty().addListener((value, previous, current) -> {
+            if (current == null){
+                btnDelete.setDisable(true);
+                return;
+            }
+            btnDelete.setDisable(false);
+            btnSave.setDisable(false);
+            btnAddNewStudent.setDisable(true);
+
+            lblStudentID.setText(current.getId());
+            txtStudentName.setText(current.getName());
+            if (current.getGender() == lk.ijse.dep10.app.util.Gender.MALE){
+                rdoMale.getToggleGroup().selectToggle(rdoMale);
+            }
+            else {
+                rdoFemale.getToggleGroup().selectToggle(rdoFemale);
+            }
+            lstContacts.getItems().clear();
+            cmbDegrees.getSelectionModel().select(current.getDegree());
+            lstContacts.getItems().addAll(current.getContacts());
+            lstSelectedModules.getItems().clear();
+            lstSelectedModules.getItems().addAll(current.getModules());
+            lstAllModules.getItems().clear();
+            lstAllModules.getItems().addAll(current.getAllModules());
+            if (current.getPartTime().equals("YES")){
+                chkPartTime.setSelected(true);
+            }
+            else {
+                chkPartTime.setSelected(false);
+            }
+
         });
 
         txtStudentName.textProperty().addListener((value, previous, current) -> {
@@ -241,22 +281,41 @@ public class MainViewController {
     void btnAddOnAction(ActionEvent event) {
         String enteredContact = txtContact.getText();
         ObservableList<String> allContacts = lstContacts.getItems();
+        ObservableList<Student> studentDetails = tblStudentDetails.getItems();
+        for (int i = 0; i < studentDetails.size(); i++) {
+            ArrayList contactsOfPreviousStudent = studentDetails.get(i).getContacts();
+            for (int j = 0; j < contactsOfPreviousStudent.size(); j++) {
+                if (enteredContact.equals(contactsOfPreviousStudent.get(j))){
+                    Alert warningAlert = new Alert(Alert.AlertType.WARNING,"Contact number " + enteredContact + " has already taken someone before.Please enter a new contact");
+                    warningAlert.show();
+                    txtContact.selectAll();
+                    txtContact.requestFocus();
+                    return;
+                }
+            }
+        }
         if (allContacts.contains(enteredContact)){
-            Alert warningAlert = new Alert(Alert.AlertType.WARNING,"Contact number " + enteredContact + " is already added. Please add another one");
+            Alert warningAlert = new Alert(Alert.AlertType.WARNING,"You have already added contact number " + enteredContact + " Please add another one");
             warningAlert.show();
             txtContact.selectAll();
             txtContact.requestFocus();
         }
         else {
             allContacts.add(enteredContact);
-            txtContact.selectAll();
+            txtContact.clear();
             txtContact.requestFocus();
         }
     }
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
+        Optional<ButtonType> optButton = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure to delete this student", ButtonType.YES, ButtonType.NO).showAndWait();
+        if (optButton.isEmpty() || optButton.get() == ButtonType.NO) return;
+        ObservableList<Student> studentDetail = tblStudentDetails.getItems();
+        Student selectedStudentToDelete = tblStudentDetails.getSelectionModel().getSelectedItem();
+        studentDetail.remove(selectedStudentToDelete);
 
+        //btnAddNewStudent.fire();
     }
 
     @FXML
@@ -296,15 +355,39 @@ public class MainViewController {
             txtStudentName.requestFocus();
         }
 
-        if (isDataValid = false){
+        if (!isDataValid){
             return;
         }
-        if (isDataValid = true){
+        Student selectedStudent = tblStudentDetails.getSelectionModel().getSelectedItem();
+        if (selectedStudent == null){
             lblStudentID.setText(generateNewStudentID(lblShortCode.getText()));
             tblStudentDetails.setDisable(false);
-            Student student = new Student(lblStudentID.getText(),txtStudentName.getText().strip(),rdoMale.isSelected() ? lk.ijse.dep10.app.util.Gender.MALE: lk.ijse.dep10.app.util.Gender.FEMALE,new ArrayList<>(lstContacts.getItems()),cmbDegrees.getSelectionModel().getSelectedItem(),new ArrayList<>(lstSelectedModules.getItems()),chkPartTime.isSelected() ? "YES": "NO");
+            Student student = new Student(lblStudentID.getText(),txtStudentName.getText().strip(),rdoMale.isSelected() ? lk.ijse.dep10.app.util.Gender.MALE: lk.ijse.dep10.app.util.Gender.FEMALE,new ArrayList<>(lstContacts.getItems()),cmbDegrees.getSelectionModel().getSelectedItem(),new ArrayList<>(lstAllModules.getItems()),new ArrayList<>(lstSelectedModules.getItems()),chkPartTime.isSelected() ? "YES": "NO");
             tblStudentDetails.getItems().add(student);
+            btnSave.setDisable(true);
         }
+        if (selectedStudent != null){
+            btnSave.setDisable(false);
+            if (selectedStudent.getId().split("-")[1].equals(lblShortCode.getText())){
+                selectedStudent.setId(lblStudentID.getText());
+            }
+            else {
+                lblStudentID.setText(generateNewStudentID(lblShortCode.getText()));
+                selectedStudent.setId(generateNewStudentID(lblShortCode.getText()));
+            }
+            selectedStudent.setName(txtStudentName.getText().strip());
+            selectedStudent.setGender(rdoMale.isSelected() ? lk.ijse.dep10.app.util.Gender.MALE: lk.ijse.dep10.app.util.Gender.FEMALE);
+            selectedStudent.setDegree(cmbDegrees.getSelectionModel().getSelectedItem());
+            selectedStudent.setPartTime(chkPartTime.isSelected() ? "YES": "NO");
+            selectedStudent.setContacts(new ArrayList<>(lstContacts.getItems()));
+            selectedStudent.setAllModules(new ArrayList<>(lstAllModules.getItems()));
+            selectedStudent.setModules(new ArrayList<>(lstSelectedModules.getItems()));
+            tblStudentDetails.refresh();
+            tblStudentDetails.getSelectionModel().clearSelection();
+            btnSave.setDisable(true);
+        }
+        btnAddNewStudent.setDisable(false);
+        //btnAddNewStudent.fire();
     }
 
     @FXML
