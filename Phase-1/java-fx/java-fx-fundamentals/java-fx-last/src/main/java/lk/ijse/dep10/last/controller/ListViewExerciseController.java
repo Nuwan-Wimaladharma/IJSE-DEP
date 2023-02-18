@@ -139,7 +139,6 @@ public class ListViewExerciseController {
         });
         lstStudents.getSelectionModel().selectedItemProperty().addListener((value, previous, current) -> {
             btnDelete.setDisable(current == null);
-
             txtId.setText(current.id);
             txtName.setText(current.name);
             if (current.gender == lk.ijse.dep10.last.util.Gender.MALE){

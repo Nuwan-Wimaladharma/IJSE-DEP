@@ -5,18 +5,20 @@ import java.util.ArrayList;
 public class Student {
     public String id;
     public String name;
-    public ArrayList contactNumbers = new ArrayList<>();
-    public ArrayList selectedModules = new ArrayList<>();
+    public ArrayList contactNumbers;
+    public ArrayList allModules;
+    public ArrayList selectedModules;
 
-    public Student(String id, String name, ArrayList contactNumbers, ArrayList selectedModules) {
+    public Student(String id, String name, ArrayList contactNumbers, ArrayList allModules, ArrayList selectedModules) {
         this.id = id;
         this.name = name;
         this.contactNumbers = contactNumbers;
+        this.allModules = allModules;
         this.selectedModules = selectedModules;
     }
 
     @Override
     public String toString(){
-        return id + "                  " + name;
+        return id + "   " + name + "    " + contactNumbers + "      " + selectedModules;
     }
 }

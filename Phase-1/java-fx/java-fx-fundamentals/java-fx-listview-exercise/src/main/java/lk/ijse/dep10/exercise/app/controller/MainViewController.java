@@ -82,36 +82,31 @@ public class MainViewController {
             if (current != null){
                 btnRemove.setDisable(false);
             }
-            //txtStudentContact.requestFocus();
         });
         lstStudentDetails.getSelectionModel().selectedItemProperty().addListener((value,previous,current) -> {
             if (current == null){
                 btnDelete.setDisable(true);
-                return;
+                //return;
             }
             if (current != null){
-                ObservableList<String> contactNumbers = lstContacts.getItems();
-                ObservableList<String> selectedModules = lstSelectedModules.getItems();
+                System.out.println("OK");
                 btnDelete.setDisable(false);
-
                 txtStudentID.setText(current.id);
                 txtStudentName.setText(current.name);
-                //lstContacts.setId(String.valueOf(current.contactNumbers));
-                //lstSelectedModules.setId(String.valueOf(current.selectedModules));
-                for (int i = 0; i < current.contactNumbers.size(); i++) {
-                    contactNumbers.add((String) current.contactNumbers.get(i));
-                }
-                for (int i = 0; i < current.selectedModules.size(); i++) {
-                    selectedModules.add((String) current.selectedModules.get(i));
-                }
-                //btnSave.setDisable(true);
+                lstContacts.getItems().clear();
+                lstContacts.getItems().addAll(current.contactNumbers);
+                lstAllModules.getItems().clear();
+                lstAllModules.getItems().addAll(current.allModules);
+                lstSelectedModules.getItems().clear();
+                lstSelectedModules.getItems().addAll(current.selectedModules);
                 btnAdd.setDisable(false);
-                //btnNewStudent.setDisable(true);
+                btnSave.setDisable(false);
+                txtStudentName.setDisable(false);
+                txtStudentContact.setDisable(false);
             }
         });
     }
 
-    ArrayList contactNumbersTemp = new ArrayList<>();
     @FXML
     void btnAddOnAction(ActionEvent event) {
         txtStudentContact.getStyleClass().remove("invalid");
@@ -130,12 +125,8 @@ public class MainViewController {
         if (count == 0 && numbers.length == 11 && numbers[3] == '-'){
             isValidPhoneNumber = true;
         }
-        ObservableList<String> contactNumbers = lstContacts.getItems();
         if (isValidPhoneNumber){
-            contactNumbers.add(contactNumber);
-            contactNumbersTemp.add(contactNumber);
-            //btnRemove.setDisable(false);
-            //btnSelectModules.setDisable(false);
+            lstContacts.getItems().add(contactNumber);
             txtStudentContact.clear();
             txtStudentContact.requestFocus();
         }
@@ -167,9 +158,7 @@ public class MainViewController {
     }
 
     @FXML
-    void btnSaveOnAction(ActionEvent event) {;
-        ObservableList<String> selectedModules = lstSelectedModules.getItems();
-        ObservableList<String> contactNumbers = lstContacts.getItems();
+    void btnSaveOnAction(ActionEvent event) {
         String inputName = txtStudentName.getText().trim();
         boolean isValidName = true;
         boolean isValid = true;
@@ -180,12 +169,12 @@ public class MainViewController {
                 isValidName = false;
             }
         }
-        if (selectedModules.size() < 3){
+        if (lstSelectedModules.getItems().size() < 3){
             lstSelectedModules.getStyleClass().add("invalid");
             lstSelectedModules.requestFocus();
             isValid = false;
         }
-        if (contactNumbers.size() == 0){
+        if (lstContacts.getItems().size() == 0){
             lstContacts.getStyleClass().add("invalid");
             lstContacts.requestFocus();
             isValid = false;
@@ -200,58 +189,65 @@ public class MainViewController {
         if (isValid == false){
             return;
         }
-        if (isValid == true){
-            ObservableList<Student> studentDetailsList = lstStudentDetails.getItems();
-            Student student = new Student(txtStudentID.getText(),txtStudentName.getText(),contactNumbersTemp,selectedModulesTemp);
-            studentDetailsList.add(student);
 
+        Student selectedStudent = lstStudentDetails.getSelectionModel().getSelectedItem();
+        if (selectedStudent == null){
+            Student student = new Student(txtStudentID.getText(),txtStudentName.getText(),new ArrayList<>(lstContacts.getItems()),new ArrayList<>(lstAllModules.getItems()),new ArrayList<>(lstSelectedModules.getItems()));
+            lstStudentDetails.getItems().add(student);
             txtStudentID.clear();
             txtStudentName.clear();
             txtStudentContact.clear();
-            contactNumbers.clear();
-            selectedModules.clear();
-            btnAdd.setDisable(true);
-            btnSave.setDisable(true);
-            btnNewStudent.setDisable(false);
+            lstContacts.getItems().clear();
+            lstAllModules.getItems().clear();
+            lstSelectedModules.getItems().clear();
         }
-
+        else{
+            selectedStudent.id = txtStudentID.getText();
+            selectedStudent.name = txtStudentContact.getText().trim();
+            selectedStudent.contactNumbers.clear();
+            selectedStudent.contactNumbers.addAll(new ArrayList<>(lstContacts.getItems()));
+            selectedStudent.allModules.clear();
+            selectedStudent.allModules.addAll(new ArrayList<>(lstAllModules.getItems()));
+            selectedStudent.selectedModules.clear();
+            selectedStudent.selectedModules.addAll(new ArrayList<>(lstSelectedModules.getItems()));
+        }
+        //txtStudentID.clear();
+        //txtStudentName.clear();
+        //txtStudentContact.clear();
+        //lstContacts.getItems().clear();
+        //lstAllModules.getItems().clear();
+        //lstSelectedModules.getItems().clear();
+        //btnAdd.setDisable(true);
+        //btnSave.setDisable(true);
+        btnNewStudent.setDisable(false);
+        txtStudentName.setDisable(true);
+        txtStudentContact.setDisable(true);
+        btnSave.setDisable(true);
     }
 
-    ArrayList selectedModulesTemp = new ArrayList<>();
     @FXML
     void btnSelectModulesOnAction(ActionEvent event) {
-        ObservableList<String> allModules = lstAllModules.getItems();
-        ObservableList<String> selectedModules = lstSelectedModules.getItems();
         String selectedModule = lstAllModules.getSelectionModel().getSelectedItem();
-        if (!selectedModules.contains(selectedModule)){
-            selectedModules.add(selectedModule);
-            selectedModulesTemp.add(selectedModule);
-        }
+        lstSelectedModules.getItems().add(selectedModule);
+        lstAllModules.getItems().remove(selectedModule);
         lstAllModules.getSelectionModel().clearSelection();
-        //btnUnselectModules.setDisable(false);
-        //allModules.remove(selectedModule);
         btnSave.setDisable(false);
     }
 
     @FXML
     void btnUnselectModulesOnAction(ActionEvent event) {
-        ObservableList<String> allModules = lstAllModules.getItems();
-        ObservableList<String> selectedModules = lstSelectedModules.getItems();
         String selectedModuleToUnselect = lstSelectedModules.getSelectionModel().getSelectedItem();
-        //allModules.add(selectedModuleToUnselect);
+        lstSelectedModules.getItems().remove(selectedModuleToUnselect);
+        lstAllModules.getItems().add(selectedModuleToUnselect);
         lstSelectedModules.getSelectionModel().clearSelection();
-        selectedModules.remove(selectedModuleToUnselect);
     }
 
     public int idGenerateNumber = 1;
     public void btnNewStudentOnAction(ActionEvent actionEvent) {
-        ObservableList<String> allModules = lstAllModules.getItems();
-        ObservableList<String> selectedModules = lstSelectedModules.getItems();
-        ObservableList<String> contactNumbers = lstContacts.getItems();
-        //allModules.clear();
-        //allModules.addAll("Programming Fundamentals","Java","Java Script","Angular","React","SpringBoot");
-        contactNumbers.clear();
-        selectedModules.clear();
+        lstAllModules.getItems().clear();
+        lstAllModules.getItems().addAll("Programming Fundamentals","Java","Java Script","Angular","React","SpringBoot");
+        lstContacts.getItems().clear();
+        lstSelectedModules.getItems().clear();
         ArrayList idNumbers = idGenerator(idGenerateNumber);
         String stdId = (String) idNumbers.get(idGenerateNumber-1);
         txtStudentID.setText(stdId);
