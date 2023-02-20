@@ -86,24 +86,21 @@ public class MainViewController {
         lstStudentDetails.getSelectionModel().selectedItemProperty().addListener((value,previous,current) -> {
             if (current == null){
                 btnDelete.setDisable(true);
-                //return;
+                return;
             }
-            if (current != null){
-                System.out.println("OK");
-                btnDelete.setDisable(false);
-                txtStudentID.setText(current.id);
-                txtStudentName.setText(current.name);
-                lstContacts.getItems().clear();
-                lstContacts.getItems().addAll(current.contactNumbers);
-                lstAllModules.getItems().clear();
-                lstAllModules.getItems().addAll(current.allModules);
-                lstSelectedModules.getItems().clear();
-                lstSelectedModules.getItems().addAll(current.selectedModules);
-                btnAdd.setDisable(false);
-                btnSave.setDisable(false);
-                txtStudentName.setDisable(false);
-                txtStudentContact.setDisable(false);
-            }
+            btnDelete.setDisable(false);
+            txtStudentID.setText(current.id);
+            txtStudentName.setText(current.name);
+            lstContacts.getItems().clear();
+            lstContacts.getItems().addAll(current.contactNumbers);
+            lstAllModules.getItems().clear();
+            lstAllModules.getItems().addAll(current.allModules);
+            lstSelectedModules.getItems().clear();
+            lstSelectedModules.getItems().addAll(current.selectedModules);
+            btnAdd.setDisable(false);
+            btnSave.setDisable(false);
+            txtStudentName.setDisable(false);
+            txtStudentContact.setDisable(false);
         });
     }
 
@@ -194,14 +191,9 @@ public class MainViewController {
         if (selectedStudent == null){
             Student student = new Student(txtStudentID.getText(),txtStudentName.getText(),new ArrayList<>(lstContacts.getItems()),new ArrayList<>(lstAllModules.getItems()),new ArrayList<>(lstSelectedModules.getItems()));
             lstStudentDetails.getItems().add(student);
-            txtStudentID.clear();
-            txtStudentName.clear();
-            txtStudentContact.clear();
-            lstContacts.getItems().clear();
-            lstAllModules.getItems().clear();
-            lstSelectedModules.getItems().clear();
         }
         else{
+            btnDelete.setDisable(true);
             selectedStudent.id = txtStudentID.getText();
             selectedStudent.name = txtStudentContact.getText().trim();
             selectedStudent.contactNumbers.clear();
@@ -211,18 +203,19 @@ public class MainViewController {
             selectedStudent.selectedModules.clear();
             selectedStudent.selectedModules.addAll(new ArrayList<>(lstSelectedModules.getItems()));
         }
-        //txtStudentID.clear();
-        //txtStudentName.clear();
-        //txtStudentContact.clear();
-        //lstContacts.getItems().clear();
-        //lstAllModules.getItems().clear();
-        //lstSelectedModules.getItems().clear();
+        txtStudentID.clear();
+        txtStudentName.clear();
+        txtStudentContact.clear();
+        lstContacts.getItems().clear();
+        lstAllModules.getItems().clear();
+        lstSelectedModules.getItems().clear();
         //btnAdd.setDisable(true);
         //btnSave.setDisable(true);
         btnNewStudent.setDisable(false);
         txtStudentName.setDisable(true);
         txtStudentContact.setDisable(true);
         btnSave.setDisable(true);
+        lstStudentDetails.getSelectionModel().clearSelection();
     }
 
     @FXML
