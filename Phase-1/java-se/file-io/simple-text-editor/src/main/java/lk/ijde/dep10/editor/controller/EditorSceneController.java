@@ -103,6 +103,13 @@ public class EditorSceneController {
             FileWriter fileWriter = new FileWriter(saveFile);
             fileWriter.write(txtEditor.getText());
             fileWriter.close();
+
+//            FileOutputStream fos = new FileOutputStream(saveFile,false);
+//            String text = txtEditor.getText();
+//            txtEditor.clear();
+//            byte[] bytes = text.getBytes();
+//            fos.write(bytes);
+//            fos.close();
             newStage.setTitle(getTitle.substring(1));
         }
         else {
