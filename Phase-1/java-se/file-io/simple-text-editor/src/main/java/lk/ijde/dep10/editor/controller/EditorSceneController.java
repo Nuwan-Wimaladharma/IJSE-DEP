@@ -16,6 +16,7 @@ import javafx.scene.web.HTMLEditor;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import lk.ijde.dep10.editor.AppInitializer;
 
 import java.io.*;
@@ -27,12 +28,43 @@ public class EditorSceneController {
     private TextArea txtEditor;
     private File saveFile;
 
-
-
+    public void initialize(){
+        txtEditor.textProperty().addListener((value,previous,current) -> {
+            Stage newStage = (Stage) txtEditor.getScene().getWindow();
+            if (previous != current){
+                if (newStage.getTitle().charAt(0) != '*'){
+                    newStage.setTitle("*" + newStage.getTitle());
+                }
+            }
+        });
+    }
+    public void closeStageFromButton(Stage stage){
+        Stage newStage = (Stage) txtEditor.getScene().getWindow();
+        newStage.setOnCloseRequest(event -> {
+            String getTitle = newStage.getTitle();
+            if (getTitle.charAt(0) == '*'){
+                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure to close this project before saving...?", ButtonType.YES,ButtonType.NO);
+                Optional<ButtonType> button = confirmationAlert.showAndWait();
+                if (button.isPresent() && button.get() == ButtonType.YES){
+                    newStage.close();
+                }
+                else {
+                    try {
+                        mnSaveAsOnAction();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+            else {
+                newStage.close();
+            }
+        });
+    }
     @FXML
     void mnAboutOnAction(ActionEvent event) throws IOException {
         Stage aboutStage = new Stage();
-        aboutStage.setTitle("About Text Editor");
+        aboutStage.setTitle("About Simple Text Editor");
 
         URL fxmlFile = this.getClass().getResource("/view/AboutScene.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(fxmlFile);
@@ -66,28 +98,77 @@ public class EditorSceneController {
     }
 
     @FXML
-    void mnNewOnAction(ActionEvent event) {
-        txtEditor.clear();
+    void mnNewOnAction(ActionEvent event) throws IOException {
+        Stage newStage = (Stage) txtEditor.getScene().getWindow();
+        if (newStage.getTitle().charAt(0) == '*'){
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure to take a new file before saving previous file...?", ButtonType.YES,ButtonType.NO);
+            Optional<ButtonType> button = confirmationAlert.showAndWait();
+            if (button.isPresent() && button.get() == ButtonType.YES){
+                txtEditor.clear();
+                newStage.setTitle("Untitled file");
+            }
+            else {
+                mnSaveAsOnAction();
+                txtEditor.clear();
+                newStage.setTitle("Untitled file");
+            }
+        }
+        else {
+            txtEditor.clear();
+            newStage.setTitle("Untitled file");
+        }
     }
 
     @FXML
     void mnOpenOnAction(ActionEvent event) throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open a text file");
-        File file = fileChooser.showOpenDialog(txtEditor.getScene().getWindow());
-        saveFile = file;
-        if (file == null) return;
-
-        FileInputStream fis = new FileInputStream(file);
-        byte[] bytes = fis.readAllBytes();
-        fis.close();
-
         Stage newStage = (Stage) txtEditor.getScene().getWindow();
-        String fileName = file + "";
-        String[] splits = fileName.split("/");
-        newStage.setTitle(splits[splits.length - 1]);
-        txtEditor.setText(new String(bytes));
+        if (newStage.getTitle().charAt(0) == '*'){
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure to open another file before saving this file...?", ButtonType.YES,ButtonType.NO);
+            Optional<ButtonType> button = confirmationAlert.showAndWait();
+            if (button.isPresent() && button.get() == ButtonType.YES){
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Open a text file");
+                File file = fileChooser.showOpenDialog(txtEditor.getScene().getWindow());
+                saveFile = file;
+                if (file == null) return;
 
+                FileInputStream fis = new FileInputStream(file);
+                byte[] bytes = fis.readAllBytes();
+                fis.close();
+
+                txtEditor.setText(new String(bytes));
+                newStage.setTitle(file.getName());
+            }
+            else {
+                mnSaveAsOnAction();
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Open a text file");
+                File file = fileChooser.showOpenDialog(txtEditor.getScene().getWindow());
+                saveFile = file;
+                if (file == null) return;
+
+                FileInputStream fis = new FileInputStream(file);
+                byte[] bytes = fis.readAllBytes();
+                fis.close();
+
+                txtEditor.setText(new String(bytes));
+                newStage.setTitle(file.getName());
+            }
+        }
+        else {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open a text file");
+            File file = fileChooser.showOpenDialog(txtEditor.getScene().getWindow());
+            saveFile = file;
+            if (file == null) return;
+
+            FileInputStream fis = new FileInputStream(file);
+            byte[] bytes = fis.readAllBytes();
+            fis.close();
+
+            txtEditor.setText(new String(bytes));
+            newStage.setTitle(file.getName());
+        }
     }
 
     @FXML
@@ -99,7 +180,7 @@ public class EditorSceneController {
     void mnSaveOnAction() throws IOException {
         Stage newStage = (Stage) txtEditor.getScene().getWindow();
         String getTitle = newStage.getTitle();
-        if (!getTitle.equals("Untitled file") || !getTitle.equals("*Untitled file")){
+        if (!getTitle.equals("Untitled file") && !getTitle.equals("*Untitled file")){
             FileWriter fileWriter = new FileWriter(saveFile);
             fileWriter.write(txtEditor.getText());
             fileWriter.close();
@@ -123,6 +204,8 @@ public class EditorSceneController {
             byte[] bytes = text.getBytes();
             fos.write(bytes);
             fos.close();
+
+            newStage.setTitle(file.getName());
         }
     }
 
@@ -132,24 +215,28 @@ public class EditorSceneController {
 
     public void rootOnDragDropped(DragEvent dragEvent) throws IOException {
         File droppedFile = dragEvent.getDragboard().getFiles().get(0);
-
+        saveFile = droppedFile;
         FileInputStream fis = new FileInputStream(droppedFile);
         byte[] bytes = fis.readAllBytes();
         fis.close();
 
         txtEditor.setText(new String(bytes));
+
+        Stage newStage = (Stage) txtEditor.getScene().getWindow();
+        newStage.setTitle(droppedFile.getName());
     }
 
     public void txtEditorOnKeyPressed(KeyEvent keyEvent) {
-        Stage newStage = (Stage) txtEditor.getScene().getWindow();
-        String getTitle = newStage.getTitle();
-        if (getTitle.charAt(0) == '*') return;
-        if (keyEvent.getCode() != null){
-            newStage.setTitle("*" + getTitle);
-        }
+//        Stage newStage = (Stage) txtEditor.getScene().getWindow();
+//        String getTitle = newStage.getTitle();
+//        if (getTitle.charAt(0) == '*') return;
+//        if (keyEvent.getCode() != null){
+//            newStage.setTitle("*" + getTitle);
+//        }
     }
 
     public void mnSaveAsOnAction() throws IOException {
+        Stage newStage = (Stage) txtEditor.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save a text file");
         File file = fileChooser.showSaveDialog(txtEditor.getScene().getWindow());
@@ -160,6 +247,7 @@ public class EditorSceneController {
         byte[] bytes = text.getBytes();
         fos.write(bytes);
         fos.close();
+        newStage.setTitle(file.getName());
     }
 }
 
