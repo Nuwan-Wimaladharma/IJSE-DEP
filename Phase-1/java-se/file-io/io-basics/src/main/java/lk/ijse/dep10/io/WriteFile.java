@@ -18,6 +18,7 @@ public class WriteFile {
 
         //fos.write(bytes[0]);
         fos.write(bytes);
+        fos.write(bytes,0,10);
         fos.close();
     }
 }

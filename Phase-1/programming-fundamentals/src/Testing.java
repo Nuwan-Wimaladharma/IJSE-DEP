@@ -29,10 +29,10 @@ public class Testing {
         //System.out.println(newString);
 
         int[] nums = new int[]{5,4,3,2,1};
+        int[] nums2 = new int[]{5,4,3,2,1};
+        System.out.println(Arrays.toString(nums).equals(Arrays.toString(nums2)));
         //System.out.println(Arrays.toString(selectionSortRecursion(nums)));
-        String id = "S-ENG-005";
-        String[] parts = id.split("-");
-        System.out.println(Arrays.toString(parts));
+
 
 
     }

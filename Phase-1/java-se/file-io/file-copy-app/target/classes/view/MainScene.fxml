@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="408.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep10.app.controller.MainSceneController">
+   <children>
+      <Button fx:id="btnReset" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnResetOnAction" text="RESET">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnSelectFile" layoutX="14.0" layoutY="57.0" mnemonicParsing="false" onAction="#btnSelectFileOnAction" text="SELECT FILE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <TextField fx:id="txtFileView" layoutX="14.0" layoutY="107.0" prefHeight="33.0" prefWidth="476.0" promptText="File hasn't been selected " />
+      <Button fx:id="btnSelectDestination" layoutX="14.0" layoutY="156.0" mnemonicParsing="false" onAction="#btnSelectDestinationOnAction" text="SELECT DESTINATION">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <TextField fx:id="txtDirectoryView" layoutX="14.0" layoutY="210.0" prefHeight="33.0" prefWidth="476.0" promptText="Directory hasn't been selected yet" />
+      <Button fx:id="btnCopy" layoutX="214.0" layoutY="265.0" mnemonicParsing="false" onAction="#btnCopyOnAction" text="COPY">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <ProgressBar fx:id="pgsBar" layoutX="18.0" layoutY="322.0" prefHeight="20.0" prefWidth="467.0" progress="0.0" />
+      <Label fx:id="txtProgress" layoutX="231.0" layoutY="352.0" text="0 %">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
