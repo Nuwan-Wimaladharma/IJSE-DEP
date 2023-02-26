@@ -28,9 +28,15 @@ public class Testing {
         //String newString = number.split(" ");
         //System.out.println(newString);
 
-        int[] nums = new int[]{5,4,3,2,1};
-        int[] nums2 = new int[]{5,4,3,2,1};
-        System.out.println(Arrays.toString(nums).equals(Arrays.toString(nums2)));
+
+        String a = "";
+        System.out.println(a.isEmpty());
+        System.out.println(a.isBlank());
+        char[] chars = a.toCharArray();
+        for (char aChar : chars) {
+            System.out.println(Character.isLetter(aChar));
+        }
+
         //System.out.println(Arrays.toString(selectionSortRecursion(nums)));
 
 

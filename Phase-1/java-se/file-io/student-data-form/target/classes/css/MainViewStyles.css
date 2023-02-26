@@ -1,0 +1,30 @@
+#btnNew{
+    -fx-background-color: blue;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+}
+#btnNew:hover{
+    -fx-background-color: rgba(0, 0, 255, 0.77);
+}
+#btnSave {
+    -fx-background-color: green;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+}
+#btnSave {
+    -fx-background-color: rgba(0, 128, 0, 0.77);
+}
+#btnDelete {
+    -fx-background-color: red;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+}
+#btnDelete {
+    -fx-background-color: rgba(255, 0, 0, 0.77);
+}
