@@ -1,0 +1,40 @@
+#btnBrowseSource,#btnBrowseTarget{
+    -fx-background-color: grey;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+}
+#btnBrowseSource:hover,#btnBrowseTarget:hover{
+    -fx-background-color: rgba(128, 128, 128, 0.5);
+}
+#btnCopy{
+    -fx-background-color: blue;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+}
+#btnCopy:hover{
+    -fx-background-color: rgba(0, 0, 255, 0.5);
+}
+#btnMove{
+    -fx-background-color: green;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+}
+#btnMove:hover{
+    -fx-background-color: rgba(0, 128, 0, 0.5);
+}
+#btnDelete{
+    -fx-background-color: red;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+}
+#btnDelete:hover{
+    -fx-background-color: rgba(255, 0, 0, 0.5);
+}
