@@ -48,6 +48,9 @@ public class MainViewController {
 
     @FXML
     void btnBrowseSourceOnAction(ActionEvent event) {
+        txtSource.clear();
+        txtPrg.textProperty().unbind();
+        prg.progressProperty().unbind();
         JFileChooser chooser = new JFileChooser();
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         chooser.showOpenDialog(null);
@@ -55,10 +58,15 @@ public class MainViewController {
         fileName = chooser.getSelectedFile().getName();
         srcFile = chooser.getSelectedFile();
         btnDelete.setDisable(false);
+        prg.setProgress(0.0);
+        txtPrg.setText("0 % Completed");
     }
 
     @FXML
     void btnBrowseTargetOnAction(ActionEvent event) {
+        txtTarget.clear();
+        txtPrg.textProperty().unbind();
+        prg.progressProperty().unbind();
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Select a directory");
         File directory = directoryChooser.showDialog(btnBrowseTarget.getScene().getWindow());
@@ -68,6 +76,8 @@ public class MainViewController {
             targetFile = new File(directory,fileName);
             btnCopy.setDisable(false);
             btnMove.setDisable(false);
+            prg.setProgress(0.0);
+            txtPrg.setText("0 % Completed");
         }
     }
 
@@ -91,7 +101,7 @@ public class MainViewController {
                         if (read == -1) break;
                         fos.write(buffer,0,read);
                         write += read;
-                        updateMessage(String.format("%2.2f",((write * 100.0)/srcFile.length())).concat("% Completed"));
+                        updateMessage(String.format("%2.2f",((write * 100.0)/srcFile.length())).concat("% Copied"));
                         updateProgress(write,srcFile.length());
                     }
                     fis.close();
@@ -127,7 +137,7 @@ public class MainViewController {
                             if (read == -1) break;
                             fos.write(buffer,0,read);
                             write += read;
-                            updateMessage(String.format("%2.2f",((write * 100.0)/totalLength)).concat("% Completed"));
+                            updateMessage(String.format("%2.2f",((write * 100.0)/totalLength)).concat("% Copied"));
                             updateProgress(write,totalLength);
                         }
                         tempFileToCopyFolder.delete();
@@ -202,14 +212,13 @@ public class MainViewController {
                             updateMessage(String.format("%2.2f",((write * 100.0)/totalLength)).concat("% Deleted"));
                             updateProgress(write,totalLength);
                         }
-                        tempFileToDeleteFolder.delete();
                         fis.close();
                         fos.close();
                     }
+                    FileUtils.deleteDirectory(srcFile);
                     return null;
                 }
             };
-            //findFilesToDelete(srcFile);
             new Thread(task).start();
             txtPrg.textProperty().bind(task.messageProperty());
             prg.progressProperty().bind(task.progressProperty());
@@ -259,6 +268,7 @@ public class MainViewController {
                 if (optResult.isEmpty() || optResult.get() == ButtonType.NO) return;
             }
             btnCopy.getScene().getWindow();
+            FileUtils.copyDirectory(srcFile,targetFile);
             Task<Void> task = new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
@@ -273,21 +283,20 @@ public class MainViewController {
                             if (read == -1) break;
                             fos.write(buffer,0,read);
                             write += read;
-                            updateMessage(String.format("%2.2f",((write * 100.0)/totalLength)).concat("% Completed"));
+                            updateMessage(String.format("%2.2f",((write * 100.0)/totalLength)).concat("% Moved"));
                             updateProgress(write,totalLength);
                         }
                         tempFileToCopyFolder.delete();
                         fis.close();
                         fos.close();
                     }
+                    FileUtils.deleteDirectory(srcFile);
                     return null;
                 }
             };
-            //findFilesToDelete(srcFile);
             new Thread(task).start();
             txtPrg.textProperty().bind(task.messageProperty());
             prg.progressProperty().bind(task.progressProperty());
-            FileUtils.copyDirectory(srcFile,targetFile);
         }
     }
     private void findFiles(File path){
@@ -300,16 +309,5 @@ public class MainViewController {
             allFiles.add(file);
         }
     }
-    private void findFilesToDelete(File path){
-        File[] files = path.listFiles();
-        for (File file : files) {
-            if (file.isDirectory()) {
-                findFiles(file);
-                continue;
-            }
-            file.delete();
-        }
-    }
-
 }
 
