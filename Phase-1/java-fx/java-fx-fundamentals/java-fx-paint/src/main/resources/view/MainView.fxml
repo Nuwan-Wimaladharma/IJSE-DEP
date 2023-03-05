@@ -4,6 +4,7 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
@@ -11,12 +12,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep10.app.controller.MainViewController">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@../css/MainViewStyles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep10.app.controller.MainViewController">
    <children>
-      <Canvas fx:id="cnvMain" height="759.0" layoutX="-15.0" layoutY="-34.0" onMouseClicked="#cnvMainOnMouseClicked" onMouseDragged="#cnvMainOnMouseDragged" onMousePressed="#cnvMainOnMousePressed" onMouseReleased="#cnvMainOnMouseReleased" width="1062.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <ToolBar layoutX="70.0" layoutY="96.0" orientation="VERTICAL" prefHeight="522.0" prefWidth="60.0">
+      <Canvas fx:id="cnvMain" height="1080.0" layoutX="-15.0" layoutY="-34.0" onMouseClicked="#cnvMainOnMouseClicked" onMouseDragged="#cnvMainOnMouseDragged" onMousePressed="#cnvMainOnMousePressed" onMouseReleased="#cnvMainOnMouseReleased" width="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <ToolBar fx:id="tbToolBar" layoutX="70.0" layoutY="96.0" orientation="VERTICAL" prefHeight="578.0" prefWidth="60.0">
         <items>
-          <Button fx:id="btnDragToolBar" mnemonicParsing="false" onAction="#btnDragToolBarOnAction" prefHeight="6.0" prefWidth="50.0">
+          <Button fx:id="btnDragToolBar" mnemonicParsing="false" onAction="#btnDragToolBarOnAction" onMouseDragged="#btnDragOnMouseDragged" onMousePressed="#btnDragOnMousePressed" prefHeight="6.0" prefWidth="50.0">
                <graphic>
                   <ImageView fitHeight="14.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -28,7 +29,8 @@
                   <Tooltip text="Drag Toolbar">
                      <font>
                         <Font size="18.0" />
-                     </font></Tooltip>
+                     </font>
+                  </Tooltip>
                </tooltip>
             </Button>
             <Button fx:id="btnRectangle" mnemonicParsing="false" onAction="#btnRectangleOnAction" prefHeight="50.0" prefWidth="50.0">
@@ -43,7 +45,8 @@
                   <Tooltip text="Rectangle">
                      <font>
                         <Font size="18.0" />
-                     </font></Tooltip>
+                     </font>
+                  </Tooltip>
                </tooltip>
             </Button>
             <Button fx:id="btnRoundedRectangle" layoutX="10.0" layoutY="38.0" mnemonicParsing="false" onAction="#btnRoundedRectangleOnAction" prefHeight="50.0" prefWidth="50.0">
@@ -58,7 +61,8 @@
                   <Tooltip text="Rounded Rectangle">
                      <font>
                         <Font size="18.0" />
-                     </font></Tooltip>
+                     </font>
+                  </Tooltip>
                </tooltip>
             </Button>
             <Button fx:id="btnCircle" layoutX="10.0" layoutY="92.0" mnemonicParsing="false" onAction="#btnCircleOnAction" prefHeight="50.0" prefWidth="50.0">
@@ -171,6 +175,25 @@
                   </Tooltip>
                </tooltip>
             </Button>
+            <Button fx:id="btnClearAll" layoutX="10.0" layoutY="471.0" mnemonicParsing="false" onAction="#btnClearAllOnAction" prefHeight="51.0" prefWidth="50.0">
+               <padding>
+                  <Insets left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <tooltip>
+                  <Tooltip text="Clear All">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
+               <graphic>
+                  <ImageView fitHeight="43.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/broom.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
         </items>
          <opaqueInsets>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -179,5 +202,6 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </ToolBar>
+      <TextArea fx:id="txtTextArea" disable="true" layoutX="354.0" layoutY="285.0" prefHeight="200.0" prefWidth="355.0" visible="false" />
    </children>
 </AnchorPane>
