@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="360.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep10.app.controller.MainViewController">
+   <children>
+      <ComboBox fx:id="cmbType" layoutX="24.0" layoutY="35.0" onAction="#cmbTypeOnAction" prefHeight="33.0" prefWidth="564.0" promptText="Select the type" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+      <Label fx:id="lblRate" alignment="CENTER" layoutX="21.0" layoutY="96.0" prefHeight="21.0" prefWidth="560.0" text="Select the type to display the rate" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="dtpIn" layoutX="28.0" layoutY="133.0" onAction="#dtpInOnAction" prefHeight="33.0" prefWidth="564.0" promptText="Select In Date" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+      <DatePicker fx:id="dtpOut" layoutX="26.0" layoutY="194.0" onAction="#dtpOutOnAction" prefHeight="33.0" prefWidth="564.0" promptText="Select Out Date" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+      <Label fx:id="lblHint" alignment="CENTER" layoutX="22.0" layoutY="254.0" prefHeight="21.0" prefWidth="560.0" text="Select In and Out dates" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblTotal" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="310.0" prefHeight="30.0" prefWidth="560.0" text="Total :-" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
