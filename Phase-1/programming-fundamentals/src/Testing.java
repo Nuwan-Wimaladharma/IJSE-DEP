@@ -29,13 +29,9 @@ public class Testing {
         //System.out.println(newString);
 
 
-        String a = "";
+        String a = " ";
         System.out.println(a.isEmpty());
         System.out.println(a.isBlank());
-        char[] chars = a.toCharArray();
-        for (char aChar : chars) {
-            System.out.println(Character.isLetter(aChar));
-        }
 
         //System.out.println(Arrays.toString(selectionSortRecursion(nums)));
 
