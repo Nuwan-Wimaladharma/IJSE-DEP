@@ -29,7 +29,7 @@ public class Testing {
         //System.out.println(newString);
 
 
-        String a = " ";
+        String a = "";
         System.out.println(a.isEmpty());
         System.out.println(a.isBlank());
 
