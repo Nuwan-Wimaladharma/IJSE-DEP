@@ -1,5 +1,6 @@
 package lk.ijde.dep10.editor.controller;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -248,6 +249,27 @@ public class EditorSceneController {
         fos.write(bytes);
         fos.close();
         newStage.setTitle(file.getName());
+    }
+
+    public void mnFindAndReplaceOnAction(ActionEvent actionEvent) throws IOException {
+        Stage aboutStage = new Stage();
+        aboutStage.setTitle("Find and Replace");
+
+        URL fxmlFile = this.getClass().getResource("/view/FindAndReplace.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader(fxmlFile);
+        AnchorPane root = fxmlLoader.load();
+
+        Scene scene = new Scene(root);
+        aboutStage.setScene(scene);
+        aboutStage.initModality(Modality.WINDOW_MODAL);
+        aboutStage.initOwner(txtEditor.getScene().getWindow());
+        aboutStage.show();
+        aboutStage.centerOnScreen();
+
+        FindAndReplaceController controller = fxmlLoader.getController();
+        SimpleStringProperty observableText  = new SimpleStringProperty(txtEditor.getText());
+        txtEditor.textProperty().bind(observableText);
+        controller.initData(txtEditor);
     }
 }
 
