@@ -127,19 +127,12 @@ public class FindAndReplaceController {
             return;
         }
 
-        if (startIndexes.get(startPos) != 0){
-            txtEditor.textProperty().unbind();
-            String firstPart = txtEditor.getText().substring(0,startIndexes.get(startPos));
-            String secondPart = txtEditor.getText().substring(startIndexes.get(startPos));
-            String newSecondPart = secondPart.replaceFirst(txtEditor.getSelectedText(),txtReplace.getText());
-            String finalString = firstPart + newSecondPart;
-            txtEditor.setText(finalString);
-        }
-        if (startIndexes.get(startPos) == 0){
-            txtEditor.textProperty().unbind();
-            String finalString = txtEditor.getText().replaceFirst(txtEditor.getSelectedText(),txtReplace.getText());
-            txtEditor.setText(finalString);
-        }
+        txtEditor.textProperty().unbind();
+        String firstPart = txtEditor.getText().substring(0,startIndexes.get(startPos));
+        String secondPart = txtEditor.getText().substring(startIndexes.get(startPos)+1);
+        String newSecondPart = secondPart.replaceFirst(txtEditor.getSelectedText(),txtReplace.getText());
+        String finalString = firstPart + newSecondPart;
+        txtEditor.setText(finalString);
     }
 
     @FXML
