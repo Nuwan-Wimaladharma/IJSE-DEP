@@ -252,24 +252,28 @@ public class EditorSceneController {
     }
 
     public void mnFindAndReplaceOnAction(ActionEvent actionEvent) throws IOException {
-        Stage aboutStage = new Stage();
-        aboutStage.setTitle("Find and Replace");
+        Stage findAndReplaceStage = new Stage();
+        findAndReplaceStage.setTitle("Find and Replace");
 
         URL fxmlFile = this.getClass().getResource("/view/FindAndReplace.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(fxmlFile);
         AnchorPane root = fxmlLoader.load();
 
         Scene scene = new Scene(root);
-        aboutStage.setScene(scene);
-        aboutStage.initModality(Modality.WINDOW_MODAL);
-        aboutStage.initOwner(txtEditor.getScene().getWindow());
-        aboutStage.show();
-        aboutStage.centerOnScreen();
+        findAndReplaceStage.setScene(scene);
+        findAndReplaceStage.initModality(Modality.WINDOW_MODAL);
+        findAndReplaceStage.initOwner(txtEditor.getScene().getWindow());
+        findAndReplaceStage.show();
+        findAndReplaceStage.centerOnScreen();
 
         FindAndReplaceController controller = fxmlLoader.getController();
         SimpleStringProperty observableText  = new SimpleStringProperty(txtEditor.getText());
         txtEditor.textProperty().bind(observableText);
         controller.initData(txtEditor);
+
+        findAndReplaceStage.setOnCloseRequest((event) ->{
+            txtEditor.textProperty().unbind();
+        });
     }
 }
 
